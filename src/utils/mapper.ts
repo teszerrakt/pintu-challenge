@@ -1,4 +1,4 @@
-import { IGetSupportedCurrenciesResponse } from '@/interface'
+import { IGetSupportedCurrenciesResponse } from 'src/interface'
 
 export type TMappedSupportedCurrencies = Record<
   string,
