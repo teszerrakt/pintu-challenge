@@ -1,20 +1,16 @@
 import fetchLogo from 'src/apis/getLogo'
 import { useLayoutEffect, useRef } from 'react'
 import { useQuery } from 'react-query'
+import Image from 'next/image'
 
 interface ICryptoLogoProps {
   url: string
   color?: string
-  width?: string
-  height?: string
+  width?: number
+  height?: number
 }
 
-function CryptoLogo({
-  url,
-  color,
-  width = '32px',
-  height = '32px',
-}: ICryptoLogoProps) {
+function CryptoLogo({ url, color, width = 32, height = 32 }: ICryptoLogoProps) {
   const { data: logo } = useQuery(url, () => fetchLogo(url), {
     staleTime: Infinity,
   })
@@ -26,6 +22,10 @@ function CryptoLogo({
     }
   })
 
+  if (!logo) {
+    return <Image src={url} alt="crypto-logo" width={width} height={height} />
+  }
+
   return (
     <div
       ref={ref}
@@ -34,7 +34,7 @@ function CryptoLogo({
         width,
         height,
       }}
-      dangerouslySetInnerHTML={{ __html: logo ?? '' }}
+      dangerouslySetInnerHTML={{ __html: logo }}
     />
   )
 }
