@@ -11,6 +11,7 @@ import { IGetLatestPriceResponse } from 'src/pages/api/latestPrice/interface'
 import { stringToCurrency } from 'src/utils/formatter'
 import CryptoLogo from 'src/components/Icons/CryptoLogo'
 import { useState } from 'react'
+import Sorting from '../Icons/Sorting'
 
 interface ITableProps {
   data: IGetLatestPriceResponse[]
@@ -34,28 +35,34 @@ const columns = [
         </div>
       )
     },
+    enableSorting: false,
   }),
   columnHelper.accessor('priceChanges.latestPrice', {
     header: 'HARGA',
     cell: (info) => (
       <p className="font-bold">{stringToCurrency(info.getValue())}</p>
     ),
+    sortDescFirst: true,
   }),
   columnHelper.accessor('priceChanges.day', {
     header: '24 JAM',
     cell: (info) => <Percentage value={info.getValue()} />,
+    sortDescFirst: true,
   }),
   columnHelper.accessor('priceChanges.week', {
     header: '1 MGG',
     cell: (info) => <Percentage value={info.getValue()} />,
+    sortDescFirst: true,
   }),
   columnHelper.accessor('priceChanges.month', {
     header: '1 BLN',
     cell: (info) => <Percentage value={info.getValue()} />,
+    sortDescFirst: true,
   }),
   columnHelper.accessor('priceChanges.year', {
     header: '1 THN',
     cell: (info) => <Percentage value={info.getValue()} />,
+    sortDescFirst: true,
   }),
 ]
 
@@ -65,6 +72,9 @@ const Table = ({ data }: ITableProps) => {
   const table = useReactTable({
     data,
     columns,
+    state: {
+      sorting,
+    },
     onSortingChange: setSorting,
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
@@ -81,23 +91,22 @@ const Table = ({ data }: ITableProps) => {
                   key={header.id}
                   className="p-5 border-b first-of-type:pl-[75px] text-left"
                 >
-                  {header.isPlaceholder ? null : (
+                  {!header.isPlaceholder && (
                     <div
-                      {...{
-                        className: header.column.getCanSort()
+                      className={`flex items-center gap-4 ${
+                        header.column.getCanSort()
                           ? 'cursor-pointer select-none'
-                          : '',
-                        onClick: header.column.getToggleSortingHandler(),
-                      }}
+                          : ''
+                      }`}
+                      onClick={header.column.getToggleSortingHandler()}
                     >
                       {flexRender(
                         header.column.columnDef.header,
                         header.getContext()
                       )}
-                      {{
-                        asc: ' 🔼',
-                        desc: ' 🔽',
-                      }[header.column.getIsSorted() as string] ?? null}
+                      {header.column.getCanSort() && (
+                        <Sorting type={header.column.getIsSorted() as any} />
+                      )}
                     </div>
                   )}
                 </th>
