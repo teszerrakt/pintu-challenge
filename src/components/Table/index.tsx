@@ -13,7 +13,7 @@ import CryptoLogo from 'src/components/Icons/CryptoLogo'
 import { useState } from 'react'
 import Sorting from '../Icons/Sorting'
 
-interface ITableProps {
+export interface ITableProps {
   data: IGetLatestPriceResponse[]
 }
 
@@ -29,7 +29,7 @@ const columns = [
         <div className="flex items-center">
           <CryptoLogo url={value.logo} color={value.color} />
           <div className="flex flex-col w-full ml-6 lg:justify-between lg:flex-row">
-            <p className="font-bold">{value.name}</p>
+            <p className="font-semibold">{value.name}</p>
             <p className="text-slate-400">{value.currencySymbol}</p>
           </div>
         </div>
@@ -40,7 +40,7 @@ const columns = [
   columnHelper.accessor('priceChanges.latestPrice', {
     header: 'HARGA',
     cell: (info) => (
-      <p className="font-bold">{stringToCurrency(info.getValue())}</p>
+      <p className="font-semibold">{stringToCurrency(info.getValue())}</p>
     ),
     sortDescFirst: true,
   }),
@@ -81,52 +81,54 @@ const Table = ({ data }: ITableProps) => {
   })
 
   return (
-    <div className="p-5">
-      <table className="w-full overflow-x-auto border border-separate rounded-lg border-slate-300 border-spacing-0">
-        <thead className=" text-slate-400">
-          {table.getHeaderGroups().map((headerGroup) => (
-            <tr key={headerGroup.id}>
-              {headerGroup.headers.map((header) => (
-                <th
-                  key={header.id}
-                  className="p-5 border-b first-of-type:pl-[75px] text-left"
-                >
-                  {!header.isPlaceholder && (
-                    <div
-                      className={`flex items-center gap-4 ${
-                        header.column.getCanSort()
-                          ? 'cursor-pointer select-none'
-                          : ''
-                      }`}
-                      onClick={header.column.getToggleSortingHandler()}
-                    >
-                      {flexRender(
-                        header.column.columnDef.header,
-                        header.getContext()
-                      )}
-                      {header.column.getCanSort() && (
-                        <Sorting type={header.column.getIsSorted() as any} />
-                      )}
-                    </div>
-                  )}
-                </th>
-              ))}
-            </tr>
-          ))}
-        </thead>
-        <tbody>
-          {table.getRowModel().rows.map((row) => (
-            <tr key={row.id}>
-              {row.getVisibleCells().map((cell) => (
-                <td key={cell.id} className="p-5 border-b">
-                  {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                </td>
-              ))}
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+    <>
+      <div className={`p-5 md:block hidden`}>
+        <table className="w-full overflow-x-auto border border-separate rounded-lg border-slate-300 border-spacing-0">
+          <thead className=" text-slate-400">
+            {table.getHeaderGroups().map((headerGroup) => (
+              <tr key={headerGroup.id}>
+                {headerGroup.headers.map((header) => (
+                  <th
+                    key={header.id}
+                    className="p-5 border-b first-of-type:pl-[75px] text-left"
+                  >
+                    {!header.isPlaceholder && (
+                      <div
+                        className={`flex items-center gap-4 ${
+                          header.column.getCanSort()
+                            ? 'cursor-pointer select-none'
+                            : ''
+                        }`}
+                        onClick={header.column.getToggleSortingHandler()}
+                      >
+                        {flexRender(
+                          header.column.columnDef.header,
+                          header.getContext()
+                        )}
+                        {header.column.getCanSort() && (
+                          <Sorting type={header.column.getIsSorted() as any} />
+                        )}
+                      </div>
+                    )}
+                  </th>
+                ))}
+              </tr>
+            ))}
+          </thead>
+          <tbody>
+            {table.getRowModel().rows.map((row) => (
+              <tr key={row.id}>
+                {row.getVisibleCells().map((cell) => (
+                  <td key={cell.id} className="p-5 border-b">
+                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </>
   )
 }
 

@@ -23,7 +23,7 @@ function Percentage({ value }: IPercentageProps) {
   return (
     <div className={`flex gap-[5px] ${MAP_COLOR[direction]}`}>
       <Movement direction={direction} />
-      <p className="font-bold">{formattedValue}%</p>
+      <p className="font-semibold">{formattedValue}%</p>
     </div>
   )
 }
