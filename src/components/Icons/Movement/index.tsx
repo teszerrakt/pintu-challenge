@@ -5,7 +5,7 @@ interface IMovementProps {
 const MAP_ICON = {
   up: '▲',
   down: '▼',
-  stagnant: '🟰',
+  stagnant: '',
 }
 
 function Movement({ direction = 'up' }: IMovementProps) {

@@ -21,7 +21,9 @@ function Percentage({ value }: IPercentageProps) {
   const formattedValue = value.replace('-', '')
 
   return (
-    <div className={`flex gap-[5px] ${MAP_COLOR[direction]}`}>
+    <div
+      className={`flex gap-[5px] ${MAP_COLOR[direction]} justify-end md:justify-start`}
+    >
       <Movement direction={direction} />
       <p className="font-semibold">{formattedValue}%</p>
     </div>
