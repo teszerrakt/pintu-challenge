@@ -9,11 +9,10 @@ import {
   mapSupportedCurrencies,
 } from 'src/utils/mapper'
 
-import { NextResponse } from 'next/server'
 import { IGetLatestPriceResponse } from 'src/pages/api/latestPrice/interface'
 import { pairCodeSeparator } from 'src/utils/formatter'
 import { PINTU_API_URL } from 'src/constants/env'
-import { NextApiHandler, NextApiRequest, NextApiResponse } from 'next'
+import { NextApiRequest, NextApiResponse } from 'next'
 
 let supportedCurrencies: IGetSupportedCurrenciesResponse[] = []
 let mappedSupportedCurrencies: TMappedSupportedCurrencies = {}
