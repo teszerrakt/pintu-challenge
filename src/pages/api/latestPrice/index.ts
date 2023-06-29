@@ -14,6 +14,7 @@ import {
 import { pairCodeSeparator } from 'src/utils/formatter'
 import { PINTU_API_URL } from 'src/constants/env'
 import { NextApiRequest, NextApiResponse } from 'next'
+import NodeCache from 'node-cache'
 
 let supportedCurrencies: IGetSupportedCurrenciesPayload[] = []
 let mappedSupportedCurrencies: TMappedSupportedCurrencies = {}
@@ -21,21 +22,43 @@ let mappedSupportedCurrencies: TMappedSupportedCurrencies = {}
 let previousPrice: IGetPriceChangePayload[] = []
 let currentPrice: IGetPriceChangePayload[] = []
 
+interface CachedData {
+  supportedCurrencies: IGetSupportedCurrenciesPayload[]
+  mappedSupportedCurrencies: Record<string, any>
+}
+
+const cache = new NodeCache()
+
 async function init() {
   try {
-    if (supportedCurrencies.length > 0) return
-    const response = await fetch(
-      `${PINTU_API_URL}/v2/wallet/supportedCurrencies`
-    )
+    const cacheKey = 'supportedCurrencies'
+    const cachedData = cache.get(cacheKey) as CachedData
 
-    const data: TGetSupportedCurrenciesResponse = await response.json()
+    if (cachedData) {
+      supportedCurrencies = cachedData.supportedCurrencies
+      mappedSupportedCurrencies = cachedData.mappedSupportedCurrencies
+    } else {
+      const response = await fetch(
+        `${PINTU_API_URL}/v2/wallet/supportedCurrencies`
+      )
+      const data: TGetSupportedCurrenciesResponse = await response.json()
 
-    if (data.code !== 'success') {
-      throw new Error(data.message)
+      if (data.code !== 'success') {
+        throw new Error(data.message)
+      }
+
+      supportedCurrencies = data.payload
+      mappedSupportedCurrencies = mapSupportedCurrencies(supportedCurrencies)
+
+      cache.set(
+        cacheKey,
+        {
+          supportedCurrencies,
+          mappedSupportedCurrencies,
+        },
+        60
+      )
     }
-
-    supportedCurrencies = data.payload
-    mappedSupportedCurrencies = mapSupportedCurrencies(supportedCurrencies)
   } catch (error) {
     throw new Error('Error: Failed to fetch supported currencies')
   }
