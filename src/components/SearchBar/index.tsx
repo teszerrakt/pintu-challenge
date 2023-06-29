@@ -6,6 +6,8 @@ import { IGetLatestPricePayload } from 'src/apis/latestPrice/interface'
 import CryptoLogo from 'src/components/Icons/Logo'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import useComponentVisible from 'src/hooks/useComponentVisible'
+import Link from 'next/link'
+import { PINTU_BASE_URL } from 'src/constants/env'
 
 interface ISearchButtonProps {
   onClick: () => void
@@ -69,13 +71,16 @@ interface ISuggestionItemProps {
 
 function SuggestionItem({ code, name, logo }: ISuggestionItemProps) {
   return (
-    <div className="flex p-2 items-center cursor-pointer hover:bg-[#f2f2f2] justify-between mx-4 mb-2 rounded-lg">
+    <Link
+      className="flex p-2 items-center cursor-pointer hover:bg-[#f2f2f2] justify-between mx-4 mb-2 rounded-lg"
+      href={`${PINTU_BASE_URL}/market/${code}`}
+    >
       <div className="flex items-center gap-2 ">
         <CryptoLogo url={logo.url} color={logo.color} width={16} height={16} />
         <p className="text-slate-400">{name}</p>
       </div>
       {code}
-    </div>
+    </Link>
   )
 }
 
@@ -113,7 +118,7 @@ function Suggestion({ data, showErrorText, query }: ISuggestionProps) {
         ))}
       </>
     )
-  }, [data])
+  }, [data, query, showErrorText])
 
   return <div className="overflow-y-scroll md:h-80">{renderContent}</div>
 }

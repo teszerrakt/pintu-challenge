@@ -12,6 +12,8 @@ import { stringToCurrency } from 'src/utils/formatter'
 import CryptoLogo from 'src/components/Icons/Logo'
 import { useState } from 'react'
 import Sorting from '../Icons/Sorting'
+import Link from 'next/link'
+import { PINTU_BASE_URL } from 'src/constants/env'
 
 export interface ITableProps {
   data: IGetLatestPricePayload[]
@@ -26,13 +28,16 @@ const columns = [
       const value = info.getValue()
 
       return (
-        <div className="flex items-center">
+        <Link
+          className="flex items-center"
+          href={`${PINTU_BASE_URL}/market/${value.currencySymbol}`}
+        >
           <CryptoLogo url={value.logo} color={value.color} />
           <div className="flex flex-col w-full ml-6 lg:justify-between lg:flex-row">
             <p className="font-semibold">{value.name}</p>
             <p className="text-slate-400">{value.currencySymbol}</p>
           </div>
-        </div>
+        </Link>
       )
     },
     enableSorting: false,
