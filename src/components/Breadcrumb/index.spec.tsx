@@ -1,7 +1,5 @@
-// src/components/Breadcrumb/index.test.tsx
-
 import { render, screen } from '@testing-library/react'
-import Breadcrumb from './index'
+import Breadcrumb from 'src/components/Breadcrumb'
 
 describe('Breadcrumb', () => {
   const items = [
