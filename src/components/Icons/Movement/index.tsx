@@ -9,7 +9,7 @@ const MAP_ICON = {
 }
 
 function Movement({ direction = 'up' }: IMovementProps) {
-  return <div>{MAP_ICON[direction]}</div>
+  return <div className="movement-icon">{MAP_ICON[direction]}</div>
 }
 
 export default Movement
