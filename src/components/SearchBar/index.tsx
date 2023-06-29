@@ -4,15 +4,23 @@ import { useQuery } from 'react-query'
 import getLatestPrice from 'src/apis/latestPrice/getLatestPrice'
 import { IGetLatestPricePayload } from 'src/apis/latestPrice/interface'
 import CryptoLogo from 'src/components/Icons/Logo'
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
+import useComponentVisible from 'src/hooks/useComponentVisible'
 
-function SearchButton() {
+interface ISearchButtonProps {
+  onClick: () => void
+}
+
+function SearchButton({ onClick }: ISearchButtonProps) {
   return (
     <>
-      <div className="mx-4 cursor-pointer md:hidden">
+      <div className="mx-4 cursor-pointer md:hidden" onClick={onClick}>
         <SearchIcon />
       </div>
-      <div className="hidden gap-4 px-4 py-3 bg-[#f2f2f2] md:flex w-96 rounded-lg cursor-pointer">
+      <div
+        className="hidden gap-4 px-4 py-3 bg-[#f2f2f2] md:flex w-96 rounded-lg cursor-pointer"
+        onClick={onClick}
+      >
         <SearchIcon />
         <p className="flex-1 text-gray-400">Cari aset di Pintu...</p>
       </div>
@@ -23,9 +31,10 @@ function SearchButton() {
 interface ISearchInputProps {
   value: string
   onChange: (value: string) => void
+  onClose: () => void
 }
 
-function SearchInput({ value, onChange }: ISearchInputProps) {
+function SearchInput({ value, onChange, onClose }: ISearchInputProps) {
   return (
     <div className="flex items-center px-3 py-2 mx-4 mt-4 rounded-lg bg-[#f2f2f2] mb-2">
       <SearchIcon />
@@ -39,7 +48,10 @@ function SearchInput({ value, onChange }: ISearchInputProps) {
           onChange={(e) => onChange(e.target.value)}
         />
       </div>
-      <div className="flex items-center justify-center w-5 h-5 duration-200 outline-none cursor-pointer hover:scale-90">
+      <div
+        className="flex items-center justify-center w-5 h-5 duration-200 outline-none cursor-pointer hover:scale-90"
+        onClick={onClose}
+      >
         <CloseIcon />
       </div>
     </div>
@@ -117,6 +129,8 @@ function SearchBar() {
   const [searchQuery, setSearchQuery] = useState('')
   const [filteredData, setFilteredData] =
     useState<IGetLatestPricePayload[]>(initialData)
+  const { isComponentVisible, setIsComponentVisible, ref } =
+    useComponentVisible<HTMLDivElement>(false)
 
   useEffect(() => {
     if (!searchQuery) {
@@ -139,18 +153,24 @@ function SearchBar() {
 
   return (
     <div className="relative">
-      <SearchButton />
-      <div className="absolute inset-0 bottom-auto z-50 bg-white border rounded-lg border-slate-300">
-        <SearchInput
-          value={searchQuery}
-          onChange={(value) => setSearchQuery(value)}
-        />
-        <Suggestion
-          data={filteredData}
-          query={searchQuery}
-          showErrorText={!!searchQuery && filteredData.length === 0}
-        />
-      </div>
+      <SearchButton onClick={() => setIsComponentVisible(true)} />
+      {isComponentVisible && (
+        <div
+          className={`absolute inset-0 bottom-auto z-50 bg-white border rounded-lg border-slate-300`}
+          ref={ref}
+        >
+          <SearchInput
+            value={searchQuery}
+            onChange={(value) => setSearchQuery(value)}
+            onClose={() => setIsComponentVisible(false)}
+          />
+          <Suggestion
+            data={filteredData}
+            query={searchQuery}
+            showErrorText={!!searchQuery && filteredData.length === 0}
+          />
+        </div>
+      )}
     </div>
   )
 }
