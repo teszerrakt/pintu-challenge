@@ -105,7 +105,7 @@ function Suggestion({ data, showErrorText, query }: ISuggestionProps) {
   }, [data])
 
   return (
-    <div className="overflow-y-hidden md:overflow-y-scroll md:h-80">
+    <div className="overflow-y-scroll md:h-80">
       {showErrorText ? (
         <div className="text-sm text-center md:mt-10">
           <p className="font-semibold">&quot;{query}&quot; Tidak Ditemukan</p>
@@ -156,7 +156,7 @@ function SearchBar() {
       <SearchButton onClick={() => setIsComponentVisible(true)} />
       {isComponentVisible && (
         <div
-          className={`absolute inset-0 bottom-auto z-50 bg-white border rounded-lg border-slate-300`}
+          className={`fixed md:absolute inset-0 md:bottom-auto z-50 bg-white md:border rounded-lg border-slate-300 overflow-scroll`}
           ref={ref}
         >
           <SearchInput
