@@ -6,6 +6,7 @@ import TopMovers from 'src/components/TopMovers'
 import Table from 'src/components/Table'
 import MobileTable from 'src/components/MobileTable'
 import Head from 'next/head'
+import MarketTags from 'src/components/MarketTags'
 
 export async function getServerSideProps() {
   try {
@@ -54,6 +55,7 @@ const HomeScreen = ({ initialData = [] }: IHomescreenProps) => {
         />
         <meta property="og:url" content="https://pintu-challenge.vercel.app/" />
       </Head>
+
       <div className="pt-8">
         <div className="mb-6 md:mb-8">
           <h1 className="pl-4 md:pl-0 text-xl md:text-[28px]">
@@ -62,6 +64,9 @@ const HomeScreen = ({ initialData = [] }: IHomescreenProps) => {
         </div>
         <div className="mb-6 md:mt-4 ">
           <TopMovers data={tableData} limit={6} />
+        </div>
+        <div className="mb-6">
+          <MarketTags />
         </div>
         <div className="hidden md:block">
           <Table data={tableData} />
