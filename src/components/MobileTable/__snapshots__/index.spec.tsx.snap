@@ -1,0 +1,56 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MobileTable renders the table rows correctly 1`] = `
+<a
+  class="flex items-center p-4 border-b"
+  href="undefined/market/BTC"
+>
+  <div
+    class="flex flex-row flex-1 pl-6"
+  >
+    <div
+      class="flex-1"
+    >
+      <p
+        class="font-semibold"
+      >
+        Bitcoin
+      </p>
+      <p
+        class="text-sm text-slate-400"
+      >
+        BTC
+      </p>
+    </div>
+    <div
+      class="self-end flex-1"
+    >
+      <p
+        class="font-semibold text-right "
+      >
+        Rp 458.103.826
+      </p>
+      <div
+        class="text-sm"
+      >
+        <div
+          class="flex gap-[5px] text-green-600 justify-end"
+          data-testid="percentage"
+        >
+          <div
+            class="movement-icon"
+          >
+            ▲
+          </div>
+          <p
+            class="font-semibold"
+          >
+            0.66
+            %
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</a>
+`;
