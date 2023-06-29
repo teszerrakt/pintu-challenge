@@ -87,6 +87,17 @@ interface ISuggestionProps {
 
 function Suggestion({ data, showErrorText, query }: ISuggestionProps) {
   const renderContent = useMemo(() => {
+    if (showErrorText) {
+      return (
+        <div className="mt-6 text-sm text-center md:mt-10">
+          <p className="font-semibold">&quot;{query}&quot; Tidak Ditemukan</p>
+          <p className="text-gray-400">
+            Kata kunci tidak sesuai atau aset belum ada di Pintu
+          </p>
+        </div>
+      )
+    }
+
     return (
       <>
         {data?.map((item) => (
@@ -104,20 +115,7 @@ function Suggestion({ data, showErrorText, query }: ISuggestionProps) {
     )
   }, [data])
 
-  return (
-    <div className="overflow-y-scroll md:h-80">
-      {showErrorText ? (
-        <div className="text-sm text-center md:mt-10">
-          <p className="font-semibold">&quot;{query}&quot; Tidak Ditemukan</p>
-          <p className="text-gray-400">
-            Kata kunci tidak sesuai atau aset belum ada di Pintu
-          </p>
-        </div>
-      ) : (
-        renderContent
-      )}
-    </div>
-  )
+  return <div className="overflow-y-scroll md:h-80">{renderContent}</div>
 }
 
 function SearchBar() {
@@ -151,6 +149,11 @@ function SearchBar() {
     setFilteredData(filtered)
   }, [initialData, searchQuery])
 
+  const handleClose = () => {
+    setIsComponentVisible(false)
+    setSearchQuery('')
+  }
+
   return (
     <div className="relative">
       <SearchButton onClick={() => setIsComponentVisible(true)} />
@@ -162,7 +165,7 @@ function SearchBar() {
           <SearchInput
             value={searchQuery}
             onChange={(value) => setSearchQuery(value)}
-            onClose={() => setIsComponentVisible(false)}
+            onClose={handleClose}
           />
           <Suggestion
             data={filteredData}
