@@ -1,6 +1,7 @@
 function Close() {
   return (
     <svg
+      data-testid="close-icon"
       width="16"
       height="16"
       viewBox="0 0 16 16"

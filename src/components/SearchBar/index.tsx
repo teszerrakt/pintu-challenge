@@ -13,13 +13,18 @@ interface ISearchButtonProps {
   onClick: () => void
 }
 
-function SearchButton({ onClick }: ISearchButtonProps) {
+export function SearchButton({ onClick }: ISearchButtonProps) {
   return (
     <>
-      <div className="mx-4 cursor-pointer md:hidden" onClick={onClick}>
+      <div
+        className="mx-4 cursor-pointer md:hidden"
+        onClick={onClick}
+        data-testid="mobile-search-button"
+      >
         <SearchIcon />
       </div>
       <div
+        data-testid="desktop-search-button"
         className="hidden gap-4 px-4 py-3 bg-[#f2f2f2] md:flex w-96 rounded-lg cursor-pointer"
         onClick={onClick}
       >
@@ -36,7 +41,7 @@ interface ISearchInputProps {
   onClose: () => void
 }
 
-function SearchInput({ value, onChange, onClose }: ISearchInputProps) {
+export function SearchInput({ value, onChange, onClose }: ISearchInputProps) {
   return (
     <div className="flex items-center px-3 py-2 mx-4 mt-4 rounded-lg bg-[#f2f2f2] mb-2">
       <SearchIcon />
@@ -69,7 +74,7 @@ interface ISuggestionItemProps {
   }
 }
 
-function SuggestionItem({ code, name, logo }: ISuggestionItemProps) {
+export function SuggestionItem({ code, name, logo }: ISuggestionItemProps) {
   return (
     <Link
       className="flex p-2 items-center cursor-pointer hover:bg-[#f2f2f2] justify-between mx-4 mb-2 rounded-lg"
@@ -90,7 +95,7 @@ interface ISuggestionProps {
   query?: string
 }
 
-function Suggestion({ data, showErrorText, query }: ISuggestionProps) {
+export function Suggestion({ data, showErrorText, query }: ISuggestionProps) {
   const renderContent = useMemo(() => {
     if (showErrorText) {
       return (
