@@ -41,9 +41,9 @@
 }
 
 .down {
-  animation: redToBlack 2s linear;
+  animation: redToBlack 0.75s linear;
 }
 
 .up {
-  animation: greenToBlack 2s linear;
+  animation: greenToBlack 0.75s linear;
 }
