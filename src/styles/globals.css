@@ -1,3 +1,17 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@import url('https://fonts.cdnfonts.com/css/neue-haas-grotesk-display-pro');
+
+@layer base {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: 'Neue Haas Grotesk Display Pro', sans-serif;
+    font-weight: 600;
+  }
+}

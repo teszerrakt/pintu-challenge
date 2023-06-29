@@ -1,6 +1,6 @@
 import Movement from 'src/components/Icons/Movement'
 
-interface IPercentageProps {
+interface IPercentageProps extends Record<string, any> {
   value: string
 }
 
@@ -10,7 +10,7 @@ export const MAP_COLOR = {
   stagnant: 'text-black',
 }
 
-function Percentage({ value }: IPercentageProps) {
+function Percentage({ value, className }: IPercentageProps) {
   const getDirection = () => {
     if (Number(value) === 0) return 'stagnant'
     if (value.includes('-')) return 'down'
@@ -22,7 +22,7 @@ function Percentage({ value }: IPercentageProps) {
 
   return (
     <div
-      className={`flex gap-[5px] ${MAP_COLOR[direction]} justify-end md:justify-start`}
+      className={`flex gap-[5px] ${MAP_COLOR[direction]} ${className ?? ''}`}
     >
       <Movement direction={direction} />
       <p className="font-semibold">{formattedValue}%</p>

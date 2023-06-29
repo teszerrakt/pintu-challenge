@@ -84,63 +84,58 @@ const Table = ({ data }: ITableProps) => {
 
   return (
     <>
-      <div className={`p-5 md:block hidden`}>
-        <table className="w-full overflow-x-auto border border-separate rounded-lg border-slate-300 border-spacing-0">
-          <thead className=" text-slate-400">
-            {table.getHeaderGroups().map((headerGroup) => (
-              <tr key={headerGroup.id}>
-                {headerGroup.headers.map((header) => (
-                  <th
-                    key={header.id}
-                    className="p-5 border-b first-of-type:pl-[75px] text-left"
-                  >
-                    {!header.isPlaceholder && (
-                      <div
-                        className={`flex items-center gap-4 ${
-                          header.column.getCanSort()
-                            ? 'cursor-pointer select-none'
-                            : ''
-                        }`}
-                        onClick={header.column.getToggleSortingHandler()}
-                      >
-                        {flexRender(
-                          header.column.columnDef.header,
-                          header.getContext()
-                        )}
-                        {header.column.getCanSort() && (
-                          <Sorting type={header.column.getIsSorted() as any} />
-                        )}
-                      </div>
-                    )}
-                  </th>
-                ))}
-              </tr>
-            ))}
-          </thead>
-          <tbody>
-            {table.getRowModel().rows.map((row) => {
-              const isLastIndex = tableLength - 1 === row.index
-              return (
-                <tr key={row.id}>
-                  {row.getVisibleCells().map((cell) => (
-                    <td
-                      key={cell.id}
-                      className={`p-5 ${
-                        isLastIndex ? 'border-none' : 'border-b'
+      <table className="w-full overflow-x-auto border border-separate rounded-lg border-slate-300 border-spacing-0">
+        <thead className=" text-slate-400">
+          {table.getHeaderGroups().map((headerGroup) => (
+            <tr key={headerGroup.id}>
+              {headerGroup.headers.map((header) => (
+                <th
+                  key={header.id}
+                  className="p-5 border-b first-of-type:pl-[75px] text-left"
+                >
+                  {!header.isPlaceholder && (
+                    <div
+                      className={`flex items-center gap-4 ${
+                        header.column.getCanSort()
+                          ? 'cursor-pointer select-none'
+                          : ''
                       }`}
+                      onClick={header.column.getToggleSortingHandler()}
                     >
                       {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext()
+                        header.column.columnDef.header,
+                        header.getContext()
                       )}
-                    </td>
-                  ))}
-                </tr>
-              )
-            })}
-          </tbody>
-        </table>
-      </div>
+                      {header.column.getCanSort() && (
+                        <Sorting type={header.column.getIsSorted() as any} />
+                      )}
+                    </div>
+                  )}
+                </th>
+              ))}
+            </tr>
+          ))}
+        </thead>
+        <tbody>
+          {table.getRowModel().rows.map((row) => {
+            const isLastIndex = tableLength - 1 === row.index
+            return (
+              <tr key={row.id}>
+                {row.getVisibleCells().map((cell) => (
+                  <td
+                    key={cell.id}
+                    className={`p-5 ${
+                      isLastIndex ? 'border-none' : 'border-b'
+                    }`}
+                  >
+                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                  </td>
+                ))}
+              </tr>
+            )
+          })}
+        </tbody>
+      </table>
     </>
   )
 }

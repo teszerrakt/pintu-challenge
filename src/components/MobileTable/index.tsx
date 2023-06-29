@@ -29,7 +29,10 @@ function Item({
             {stringToCurrency(data.priceChanges.latestPrice)}
           </p>
           <div className="text-sm">
-            <Percentage value={data.priceChanges[filter]} />
+            <Percentage
+              value={data.priceChanges[filter]}
+              className="justify-end"
+            />
           </div>
         </div>
       </div>
@@ -41,7 +44,7 @@ function MobileTable({ data }: ITableProps) {
   const [filter, setFilter] = useState<TFilter>('day')
 
   return (
-    <div className={`md:hidden flex flex-col`}>
+    <div className="flex flex-col">
       <div className="flex justify-between">
         <div className="w-full p-4 text-xs font-semibold border-y border-slate-300">
           CRYPTO
