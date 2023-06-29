@@ -9,6 +9,7 @@ import Head from 'next/head'
 import MarketTags from 'src/components/MarketTags'
 import { GetServerSideProps } from 'next'
 import SearchBar from 'src/components/SearchBar'
+import Header from 'src/components/Header'
 
 interface IHomeScreenProps {
   initialData?: IGetLatestPricePayload[]
@@ -62,6 +63,7 @@ const HomeScreen = ({ initialData = [] }: IHomeScreenProps) => {
         <meta property="og:url" content="https://pintu-challenge.vercel.app/" />
       </Head>
 
+      <Header />
       <div className="pt-8">
         <div className="flex items-center justify-between mb-6 md:mb-8">
           <h1 className="pl-4 md:pl-0 text-xl md:text-[28px] tracking-tight">

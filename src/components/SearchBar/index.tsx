@@ -8,6 +8,8 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import useComponentVisible from 'src/hooks/useComponentVisible'
 import Link from 'next/link'
 import { PINTU_BASE_URL } from 'src/constants/env'
+import Head from 'next/head'
+import Header from '../Header'
 
 interface ISearchButtonProps {
   onClick: () => void
@@ -173,6 +175,9 @@ function SearchBar() {
           className={`fixed md:absolute inset-0 md:bottom-auto z-50 bg-white md:border rounded-lg border-slate-300 overflow-scroll`}
           ref={ref}
         >
+          <div className="block md:hidden">
+            <Header />
+          </div>
           <SearchInput
             value={searchQuery}
             onChange={(value) => setSearchQuery(value)}
