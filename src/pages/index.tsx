@@ -1,13 +1,21 @@
 import { getPayload } from 'src/pages/api/latestPrice'
-import { IGetLatestPriceResponse } from 'src/apis/latestPrice/interface'
+import { IGetLatestPricePayload } from 'src/apis/latestPrice/interface'
 import { useQuery } from 'react-query'
 import getLatestPrice from 'src/apis/latestPrice/getLatestPrice'
 import TopMovers from 'src/components/TopMovers'
 import Table from 'src/components/Table'
 import MobileTable from 'src/components/MobileTable'
 import Head from 'next/head'
+import MarketTags from 'src/components/MarketTags'
+import { GetServerSideProps } from 'next'
 
-export async function getServerSideProps() {
+interface IHomeScreenProps {
+  initialData?: IGetLatestPricePayload[]
+}
+
+export const getServerSideProps: GetServerSideProps<
+  IHomeScreenProps
+> = async () => {
   try {
     const initialData = await getPayload()
 
@@ -25,12 +33,8 @@ export async function getServerSideProps() {
   }
 }
 
-interface IHomescreenProps {
-  initialData?: IGetLatestPriceResponse[]
-}
-
-const HomeScreen = ({ initialData = [] }: IHomescreenProps) => {
-  const { data } = useQuery<IGetLatestPriceResponse[]>(
+const HomeScreen = ({ initialData = [] }: IHomeScreenProps) => {
+  const { data } = useQuery<IGetLatestPricePayload[]>(
     'latestPrice',
     () => getLatestPrice(),
     {
@@ -54,6 +58,7 @@ const HomeScreen = ({ initialData = [] }: IHomescreenProps) => {
         />
         <meta property="og:url" content="https://pintu-challenge.vercel.app/" />
       </Head>
+
       <div className="pt-8">
         <div className="mb-6 md:mb-8">
           <h1 className="pl-4 md:pl-0 text-xl md:text-[28px]">
@@ -62,6 +67,9 @@ const HomeScreen = ({ initialData = [] }: IHomescreenProps) => {
         </div>
         <div className="mb-6 md:mt-4 ">
           <TopMovers data={tableData} limit={6} />
+        </div>
+        <div className="mb-6">
+          <MarketTags />
         </div>
         <div className="hidden md:block">
           <Table data={tableData} />

@@ -7,17 +7,17 @@ import {
   useReactTable,
 } from '@tanstack/react-table'
 import Percentage from 'src/components/Percentage'
-import { IGetLatestPriceResponse } from 'src/apis/latestPrice/interface'
+import { IGetLatestPricePayload } from 'src/apis/latestPrice/interface'
 import { stringToCurrency } from 'src/utils/formatter'
-import CryptoLogo from 'src/components/Icons/CryptoLogo'
+import CryptoLogo from 'src/components/Icons/Logo'
 import { useState } from 'react'
 import Sorting from '../Icons/Sorting'
 
 export interface ITableProps {
-  data: IGetLatestPriceResponse[]
+  data: IGetLatestPricePayload[]
 }
 
-const columnHelper = createColumnHelper<IGetLatestPriceResponse>()
+const columnHelper = createColumnHelper<IGetLatestPricePayload>()
 
 const columns = [
   columnHelper.accessor('currency', {

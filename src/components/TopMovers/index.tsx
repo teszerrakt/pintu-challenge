@@ -1,12 +1,11 @@
 import { useMemo } from 'react'
-import { IGetLatestPriceResponse } from 'src/apis/latestPrice/interface'
+import { IGetLatestPricePayload } from 'src/apis/latestPrice/interface'
 import { pairCodeSeparator, stringToCurrency } from 'src/utils/formatter'
 import Percentage from '../Percentage'
-import CryptoLogo from '../Icons/CryptoLogo'
-import Head from 'next/head'
+import CryptoLogo from '../Icons/Logo'
 
 interface ITopMoversProps {
-  data: IGetLatestPriceResponse[]
+  data: IGetLatestPricePayload[]
   limit?: number
 }
 

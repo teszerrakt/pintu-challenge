@@ -1,6 +1,6 @@
-import { IGetPriceChangeResponse } from 'src/interface'
+import { IGetPriceChangePayload } from 'src/apis/latestPrice/interface'
 
-export const MOCK_PRICE_CHANGE_DATA: IGetPriceChangeResponse[] = [
+export const MOCK_PRICE_CHANGE_DATA: IGetPriceChangePayload[] = [
   {
     pair: 'busd/idr',
     latestPrice: '15015',

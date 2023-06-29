@@ -1,4 +1,4 @@
-import { IGetSupportedCurrenciesResponse } from 'src/interface'
+import { IGetSupportedCurrenciesPayload } from 'src/apis/latestPrice/interface'
 
 export type TMappedSupportedCurrencies = Record<
   string,
@@ -12,7 +12,7 @@ export type TMappedSupportedCurrencies = Record<
 >
 
 export function mapSupportedCurrencies(
-  currencies: IGetSupportedCurrenciesResponse[]
+  currencies: IGetSupportedCurrenciesPayload[]
 ): TMappedSupportedCurrencies {
   const mappedCurrencies: TMappedSupportedCurrencies = {}
 

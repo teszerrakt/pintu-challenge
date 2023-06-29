@@ -1,24 +1,25 @@
-import {
-  IGetPriceChangeResponse,
-  IGetSupportedCurrenciesResponse,
-  IResponse,
-  TMovement,
-} from 'src/interface'
+import { TMovement } from 'src/interface'
 import {
   TMappedSupportedCurrencies,
   mapSupportedCurrencies,
 } from 'src/utils/mapper'
 
-import { IGetLatestPriceResponse } from 'src/apis/latestPrice/interface'
+import {
+  IGetLatestPricePayload,
+  IGetPriceChangePayload,
+  IGetSupportedCurrenciesPayload,
+  TGetPriceChangeResponse,
+  TGetSupportedCurrenciesResponse,
+} from 'src/apis/latestPrice/interface'
 import { pairCodeSeparator } from 'src/utils/formatter'
 import { PINTU_API_URL } from 'src/constants/env'
 import { NextApiRequest, NextApiResponse } from 'next'
 
-let supportedCurrencies: IGetSupportedCurrenciesResponse[] = []
+let supportedCurrencies: IGetSupportedCurrenciesPayload[] = []
 let mappedSupportedCurrencies: TMappedSupportedCurrencies = {}
 
-let previousPrice: IGetPriceChangeResponse[] = []
-let currentPrice: IGetPriceChangeResponse[] = []
+let previousPrice: IGetPriceChangePayload[] = []
+let currentPrice: IGetPriceChangePayload[] = []
 
 async function init() {
   try {
@@ -27,8 +28,7 @@ async function init() {
       `${PINTU_API_URL}/v2/wallet/supportedCurrencies`
     )
 
-    const data: IResponse<IGetSupportedCurrenciesResponse[]> =
-      await response.json()
+    const data: TGetSupportedCurrenciesResponse = await response.json()
 
     if (data.code !== 'success') {
       throw new Error(data.message)
@@ -42,8 +42,8 @@ async function init() {
 }
 
 function comparePrice(
-  previousPrice: IGetPriceChangeResponse | undefined,
-  currentPrice: IGetPriceChangeResponse
+  previousPrice: IGetPriceChangePayload | undefined,
+  currentPrice: IGetPriceChangePayload
 ): TMovement {
   if (!previousPrice) {
     return 'same'
@@ -64,7 +64,7 @@ async function fetchPrice() {
       cache: 'no-cache',
     })
 
-    const data: IResponse<IGetPriceChangeResponse[]> = await response.json()
+    const data: TGetPriceChangeResponse = await response.json()
 
     if (data.code !== 'success') {
       throw new Error(data.message)
@@ -77,11 +77,11 @@ async function fetchPrice() {
   }
 }
 
-export async function getPayload(): Promise<IGetLatestPriceResponse[]> {
+export async function getPayload(): Promise<IGetLatestPricePayload[]> {
   await init()
   await fetchPrice()
 
-  const payload: IGetLatestPriceResponse[] = []
+  const payload: IGetLatestPricePayload[] = []
 
   for (const price of currentPrice) {
     const { pair, ...restPrice } = price

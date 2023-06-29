@@ -1,6 +1,6 @@
-import { IGetSupportedCurrenciesResponse } from 'src/interface'
+import { IGetSupportedCurrenciesPayload } from 'src/apis/latestPrice/interface'
 
-export const MOCK_SUPPORTED_CURRENCIES: IGetSupportedCurrenciesResponse[] = [
+export const MOCK_SUPPORTED_CURRENCIES: IGetSupportedCurrenciesPayload[] = [
   {
     currencyGroup: 'BUSD',
     color: '#FEBF11',
