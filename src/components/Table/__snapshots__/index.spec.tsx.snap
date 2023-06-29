@@ -1,0 +1,118 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Table renders the table rows correctly 1`] = `
+<tr>
+  <td
+    class="p-5 border-b"
+  >
+    <a
+      class="flex items-center"
+      href="undefined/market/BTC"
+    >
+      <div
+        class="flex flex-col w-full ml-6 lg:justify-between lg:flex-row"
+      >
+        <p
+          class="font-semibold"
+        >
+          Bitcoin
+        </p>
+        <p
+          class="text-slate-400"
+        >
+          BTC
+        </p>
+      </div>
+    </a>
+  </td>
+  <td
+    class="p-5 border-b"
+  >
+    <p
+      class="font-semibold "
+    >
+      Rp 458.103.826
+    </p>
+  </td>
+  <td
+    class="p-5 border-b"
+  >
+    <div
+      class="flex gap-[5px] text-green-600 "
+      data-testid="percentage"
+    >
+      <div
+        class="movement-icon"
+      >
+        ▲
+      </div>
+      <p
+        class="font-semibold"
+      >
+        0.66
+        %
+      </p>
+    </div>
+  </td>
+  <td
+    class="p-5 border-b"
+  >
+    <div
+      class="flex gap-[5px] text-green-600 "
+      data-testid="percentage"
+    >
+      <div
+        class="movement-icon"
+      >
+        ▲
+      </div>
+      <p
+        class="font-semibold"
+      >
+        2.26
+        %
+      </p>
+    </div>
+  </td>
+  <td
+    class="p-5 border-b"
+  >
+    <div
+      class="flex gap-[5px] text-green-600 "
+      data-testid="percentage"
+    >
+      <div
+        class="movement-icon"
+      >
+        ▲
+      </div>
+      <p
+        class="font-semibold"
+      >
+        10.47
+        %
+      </p>
+    </div>
+  </td>
+  <td
+    class="p-5 border-b"
+  >
+    <div
+      class="flex gap-[5px] text-green-600 "
+      data-testid="percentage"
+    >
+      <div
+        class="movement-icon"
+      >
+        ▲
+      </div>
+      <p
+        class="font-semibold"
+      >
+        51.33
+        %
+      </p>
+    </div>
+  </td>
+</tr>
+`;
