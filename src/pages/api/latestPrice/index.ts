@@ -81,6 +81,10 @@ async function fetchPrice() {
   }
 }
 
+function isMoving(priceChange: string): boolean {
+  return Number(priceChange) !== 0
+}
+
 export async function getPayload(): Promise<IGetLatestPricePayload[]> {
   await init()
   await fetchPrice()
@@ -96,7 +100,14 @@ export async function getPayload(): Promise<IGetLatestPricePayload[]> {
       await init()
     }
 
-    if (!currency?.name || !currency?.logo) {
+    const noMovement =
+      !isMoving(restPrice.day) &&
+      !isMoving(restPrice.week) &&
+      !isMoving(restPrice.month) &&
+      !isMoving(restPrice.year)
+    const excludedCurrency = !currency?.name || !currency?.logo || noMovement
+
+    if (excludedCurrency) {
       continue
     }
 
