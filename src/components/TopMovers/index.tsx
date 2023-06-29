@@ -50,7 +50,7 @@ function TopMovers({ data, limit }: ITopMoversProps) {
 
   return (
     <>
-      <h2 className="pl-4 mb-2 text-xl">🔥 Top Movers (24 Jam)</h2>
+      <h2 className="pl-4 mb-2 text-xl md:pl-0">🔥 Top Movers (24 Jam)</h2>
       <div
         className="flex gap-6 p-4 overflow-x-auto md:grid md:p-0"
         style={{
