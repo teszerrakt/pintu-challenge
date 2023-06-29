@@ -42,7 +42,7 @@ function MarketTags() {
   )
 
   return (
-    <div className="flex gap-2">
+    <div className="flex gap-2 p-4 overflow-x-auto md:p-0">
       {data?.map((tag) => (
         <Tag
           key={tag.id}

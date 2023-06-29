@@ -21,6 +21,26 @@ interface IMarketTagPageProps {
   initialData: IGetLatestPricePayload[]
 }
 
+function filterData(
+  tableData: IGetLatestPricePayload[],
+  availableCrypto: string[]
+) {
+  const filteredData: IGetLatestPricePayload[] = []
+
+  availableCrypto.forEach((item) => {
+    const filtered = tableData.find(
+      (data) =>
+        data.currency.currencySymbol.toLowerCase() === item.toLowerCase()
+    )
+
+    if (filtered) {
+      filteredData.push(filtered)
+    }
+  })
+
+  return filteredData
+}
+
 export const getServerSideProps: GetServerSideProps<
   IMarketTagPageProps
 > = async (context) => {
@@ -51,7 +71,10 @@ function MarketTagPage({ initialData, marketData, slug }: IMarketTagPageProps) {
 
   const tableData = data ?? initialData
   const content = marketData[0]
+  const availableCrypto = content.currencies.map((item) => item.name)
   const icon = content.icon
+
+  const filteredData = filterData(tableData, availableCrypto)
 
   return (
     <>
@@ -84,10 +107,10 @@ function MarketTagPage({ initialData, marketData, slug }: IMarketTagPageProps) {
           <p className="mb-6 text-slate-400">{content.subtitle}</p>
         </div>
         <div className="hidden md:block">
-          <Table data={tableData} />
+          <Table data={filteredData} />
         </div>
         <div className="md:hidden">
-          <MobileTable data={tableData} />
+          <MobileTable data={filteredData} />
         </div>
       </div>
     </>
