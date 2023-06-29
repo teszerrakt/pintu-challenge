@@ -6,6 +6,7 @@ import getLatestPrice from 'src/apis/latestPrice/getLatestPrice'
 import { IGetLatestPricePayload } from 'src/apis/latestPrice/interface'
 import getMarketTags from 'src/apis/marketTags'
 import { TGetMarketTagsResponse } from 'src/apis/marketTags/interface'
+import Breadcrumb from 'src/components/Breadcrumb'
 import Logo from 'src/components/Icons/Logo'
 import MobileTable from 'src/components/MobileTable'
 import Table from 'src/components/Table'
@@ -64,7 +65,16 @@ function MarketTagPage({ initialData, marketData, slug }: IMarketTagPageProps) {
         />
       </Head>
       <div className="pt-8">
-        <div className="px-5">
+        <div className="px-5 md:px-0">
+          <Breadcrumb
+            items={[
+              { name: 'Harga Crypto', href: '/' },
+              {
+                name: `Kategori ${content.title}`,
+                href: `/market/tags/${slug}`,
+              },
+            ]}
+          />
           <div className="flex items-center gap-4 my-4">
             <Logo url={icon.url} color="black" height={28} width={28} />
             <h1 className="text-xl md:text-[28px] font-semibold">
