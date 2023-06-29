@@ -2,17 +2,18 @@ import fetchLogo from 'src/apis/logo/getLogo'
 import { useEffect, useRef } from 'react'
 import { useQuery } from 'react-query'
 
-interface ICryptoLogoProps {
+interface ILogoProps {
   url: string
   color?: string
   width?: number
   height?: number
 }
 
-function CryptoLogo({ url, color, width = 32, height = 32 }: ICryptoLogoProps) {
+function Logo({ url, color, width = 32, height = 32 }: ILogoProps) {
   const { data: logo } = useQuery(url, () => fetchLogo(url), {
     staleTime: Infinity,
   })
+
   const ref = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -24,6 +25,7 @@ function CryptoLogo({ url, color, width = 32, height = 32 }: ICryptoLogoProps) {
   if (!logo) {
     return (
       <div
+        data-testid="logo-fallback"
         style={{
           backgroundColor: color,
           width,
@@ -36,6 +38,7 @@ function CryptoLogo({ url, color, width = 32, height = 32 }: ICryptoLogoProps) {
   }
   return (
     <div
+      data-testid="logo"
       className="flex-shrink-0"
       ref={ref}
       style={{
@@ -48,4 +51,4 @@ function CryptoLogo({ url, color, width = 32, height = 32 }: ICryptoLogoProps) {
   )
 }
 
-export default CryptoLogo
+export default Logo
