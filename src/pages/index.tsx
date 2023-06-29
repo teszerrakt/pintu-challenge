@@ -1,5 +1,5 @@
 import { getPayload } from 'src/pages/api/latestPrice'
-import { IGetLatestPriceResponse } from 'src/apis/latestPrice/interface'
+import { IGetLatestPricePayload } from 'src/apis/latestPrice/interface'
 import { useQuery } from 'react-query'
 import getLatestPrice from 'src/apis/latestPrice/getLatestPrice'
 import TopMovers from 'src/components/TopMovers'
@@ -26,11 +26,11 @@ export async function getServerSideProps() {
 }
 
 interface IHomescreenProps {
-  initialData?: IGetLatestPriceResponse[]
+  initialData?: IGetLatestPricePayload[]
 }
 
 const HomeScreen = ({ initialData = [] }: IHomescreenProps) => {
-  const { data } = useQuery<IGetLatestPriceResponse[]>(
+  const { data } = useQuery<IGetLatestPricePayload[]>(
     'latestPrice',
     () => getLatestPrice(),
     {

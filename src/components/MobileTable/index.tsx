@@ -1,5 +1,5 @@
 import { ITableProps } from 'src/components/Table'
-import { IGetLatestPriceResponse } from 'src/apis/latestPrice/interface'
+import { IGetLatestPricePayload } from 'src/apis/latestPrice/interface'
 import CryptoLogo from 'src/components/Icons/CryptoLogo'
 import { stringToCurrency } from 'src/utils/formatter'
 import Percentage from '../Percentage'
@@ -11,7 +11,7 @@ function Item({
   data,
   filter,
 }: {
-  data: IGetLatestPriceResponse
+  data: IGetLatestPricePayload
   filter: TFilter
 }) {
   return (
