@@ -7,7 +7,7 @@ import {
   useReactTable,
 } from '@tanstack/react-table'
 import Percentage from 'src/components/Percentage'
-import { IGetLatestPriceResponse } from 'src/pages/api/latestPrice/interface'
+import { IGetLatestPriceResponse } from 'src/apis/latestPrice/interface'
 import { stringToCurrency } from 'src/utils/formatter'
 import CryptoLogo from 'src/components/Icons/CryptoLogo'
 import { useState } from 'react'

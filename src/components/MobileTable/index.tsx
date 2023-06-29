@@ -1,5 +1,5 @@
 import { ITableProps } from 'src/components/Table'
-import { IGetLatestPriceResponse } from 'src/pages/api/latestPrice/interface'
+import { IGetLatestPriceResponse } from 'src/apis/latestPrice/interface'
 import CryptoLogo from 'src/components/Icons/CryptoLogo'
 import { stringToCurrency } from 'src/utils/formatter'
 import Percentage from '../Percentage'
