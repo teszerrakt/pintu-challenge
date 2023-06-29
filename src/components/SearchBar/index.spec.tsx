@@ -10,6 +10,7 @@ import { MOCK_LATEST_PRICE_DATA } from 'src/__mocks__/latest-price'
 import { useQuery } from 'react-query'
 
 jest.mock('react-query')
+jest.mock('src/components/Header')
 jest.mock('src/components/Icons/Logo')
 
 afterEach(() => {

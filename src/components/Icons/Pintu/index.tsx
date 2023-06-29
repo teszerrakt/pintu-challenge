@@ -26,8 +26,8 @@ function PintuIcon() {
           y2="12.3659"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#0A68F4"></stop>
-          <stop offset="1" stop-color="#3DFFB9"></stop>
+          <stop stopColor="#0A68F4"></stop>
+          <stop offset="1" stopColor="#3DFFB9"></stop>
         </linearGradient>
       </defs>
     </svg>
