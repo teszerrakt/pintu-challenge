@@ -3,6 +3,8 @@ import { IGetLatestPricePayload } from 'src/apis/latestPrice/interface'
 import { pairCodeSeparator, stringToCurrency } from 'src/utils/formatter'
 import Percentage from '../Percentage'
 import CryptoLogo from '../Icons/Logo'
+import Link from 'next/link'
+import { PINTU_BASE_URL } from 'src/constants/env'
 
 interface ITopMoversProps {
   data: IGetLatestPricePayload[]
@@ -20,11 +22,18 @@ interface ITopMoverCardProps {
   }
 }
 
-function TopMoverCard({ logo, name, price, percentage }: ITopMoverCardProps) {
+function TopMoverCard({
+  code,
+  logo,
+  name,
+  price,
+  percentage,
+}: ITopMoverCardProps) {
   return (
-    <div
+    <Link
       data-testid="top-mover-card"
       className="flex flex-col gap-2 p-4 cursor-pointer hover:bg-[#f2f2f2] flex-[0_0_auto]"
+      href={`${PINTU_BASE_URL}/market/${code}`}
     >
       <div className="flex items-center gap-2">
         <CryptoLogo url={logo.url} color={logo.color} />
@@ -34,7 +43,7 @@ function TopMoverCard({ logo, name, price, percentage }: ITopMoverCardProps) {
       </div>
       <p className="text-sm text-slate-400">{stringToCurrency(price)}</p>
       <Percentage value={percentage} className="text-xl" />
-    </div>
+    </Link>
   )
 }
 
