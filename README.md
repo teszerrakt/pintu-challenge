@@ -1,38 +1,85 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# pintu-challenge
+
+## Table of Contents
+
+- [pintu-challenge](#pintu-challenge)
+  - [Table of Contents](#table-of-contents)
+  - [Getting Started](#getting-started)
+  - [Testing](#testing)
+  - [Architecture](#architecture)
+  - [Tech Stack](#tech-stack)
+  - [To Improve](#to-improve)
 
 ## Getting Started
 
-First, run the development server:
+This section provides instructions on how to set up and run the project locally. Follow the steps below:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+1. Copy the `.env.example` file to `.env.local` and fill in the necessary values.
+2. Install the project dependencies:
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+   ```bash
+   npm install
+   # or
+   yarn install
+   # or
+   pnpm install
+   ```
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+3. Run the development server:
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+   ```bash
+   npm run dev
+   # or
+   yarn dev
+   # or
+   pnpm run dev
+   ```
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+4. Open [http://localhost:3000](http://localhost:3000) in your browser to see the application.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+   You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
 
-## Learn More
+   API routes can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`. The `pages/api` directory is mapped to `/api/*` and treated as API routes instead of React pages.
 
-To learn more about Next.js, take a look at the following resources:
+   This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to optimize and load the Inter font, a custom Google Font.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Testing
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+To run tests, follow these steps:
 
-## Deploy on Vercel
+1. Create a file called `index.spec.(ts|tsx)` in the corresponding folder to write your test cases using `jest` and `react-testing-library`.
+2. Run the tests using the command:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+   ```bash
+   npm run test
+   # or
+   yarn test
+   # or
+   pnpm run test
+   ```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## Architecture
+
+To understand the project's architecture, refer to the [architecture documentation](./docs/architecture.md).
+
+## Tech Stack
+
+- Next.js (pages routing)
+- React Table
+- React Query
+- Tailwind CSS
+- TypeScript
+- Jest
+- React Testing Library
+
+If you're curios about the rationale behind the tech stack, refer to the [tech stack background documentation](./docs/tech-stack-background.md).
+
+## To Improve
+
+- Add logging
+- Add GA4 tracking
+- Improve accessibility
+  - Add `aria-label` to links
+  - Add shortcut for Search (e.g., `CMD + K`)
+  - Ensure dropdown and search functionality can be accessed using the keyboard
+- Add E2E tests

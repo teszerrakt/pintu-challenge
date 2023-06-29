@@ -1,7 +1,7 @@
 import { IGetLatestPricePayload } from 'src/apis/latestPrice/interface'
 import { TMovement } from 'src/interface'
 
-function comparePrice(
+export function comparePrice(
   previousPrice: IGetLatestPricePayload | undefined,
   currentPrice: IGetLatestPricePayload
 ): TMovement {

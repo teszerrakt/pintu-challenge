@@ -45,8 +45,5 @@ interface IPriceChanges extends Omit<IGetPriceChangePayload, 'pair'> {
 export interface IGetLatestPricePayload {
   pair: string
   priceChanges: IPriceChanges
-  currency: Omit<
-    IGetSupportedCurrenciesPayload,
-    'wallets' | 'listingDate' | 'decimal_point'
-  >
+  currency: Omit<IGetSupportedCurrenciesPayload, 'wallets' | 'decimal_point'>
 }

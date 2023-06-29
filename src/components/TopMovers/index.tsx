@@ -22,7 +22,10 @@ interface ITopMoverCardProps {
 
 function TopMoverCard({ logo, name, price, percentage }: ITopMoverCardProps) {
   return (
-    <div className="flex flex-col gap-2 p-4 cursor-pointer hover:bg-[#f2f2f2] flex-[0_0_auto]">
+    <div
+      data-testid="top-mover-card"
+      className="flex flex-col gap-2 p-4 cursor-pointer hover:bg-[#f2f2f2] flex-[0_0_auto]"
+    >
       <div className="flex items-center gap-2">
         <CryptoLogo url={logo.url} color={logo.color} />
         <p className="overflow-hidden text-xl font-semibold text-ellipsis whitespace-nowrap">
