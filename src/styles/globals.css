@@ -15,3 +15,35 @@
     font-weight: 600;
   }
 }
+
+@keyframes redToBlack {
+  0% {
+    color: rgb(220, 38, 38);
+  }
+  50% {
+    color: rgb(220, 38, 38);
+  }
+  100% {
+    color: black;
+  }
+}
+
+@keyframes greenToBlack {
+  0% {
+    color: rgb(22, 163, 74);
+  }
+  50% {
+    color: rgb(22, 163, 74);
+  }
+  100% {
+    color: black;
+  }
+}
+
+.down {
+  animation: redToBlack 2s linear;
+}
+
+.up {
+  animation: greenToBlack 2s linear;
+}

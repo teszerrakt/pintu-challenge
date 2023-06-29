@@ -19,7 +19,6 @@ import NodeCache from 'node-cache'
 let supportedCurrencies: IGetSupportedCurrenciesPayload[] = []
 let mappedSupportedCurrencies: TMappedSupportedCurrencies = {}
 
-let previousPrice: IGetPriceChangePayload[] = []
 let currentPrice: IGetPriceChangePayload[] = []
 
 interface CachedData {
@@ -64,23 +63,6 @@ async function init() {
   }
 }
 
-function comparePrice(
-  previousPrice: IGetPriceChangePayload | undefined,
-  currentPrice: IGetPriceChangePayload
-): TMovement {
-  if (!previousPrice) {
-    return 'same'
-  }
-  if (previousPrice.latestPrice > currentPrice.latestPrice) {
-    return 'down'
-  }
-  if (previousPrice.latestPrice < currentPrice.latestPrice) {
-    return 'up'
-  }
-
-  return 'same'
-}
-
 async function fetchPrice() {
   try {
     const response = await fetch(`${PINTU_API_URL}/v2/trade/price-changes`, {
@@ -93,7 +75,6 @@ async function fetchPrice() {
       throw new Error(data.message)
     }
 
-    previousPrice = currentPrice
     currentPrice = data.payload
   } catch (error) {
     throw new Error('Error: Failed to fetch latest price')

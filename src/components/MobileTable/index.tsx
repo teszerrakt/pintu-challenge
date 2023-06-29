@@ -26,7 +26,11 @@ function Item({
           </p>
         </div>
         <div className="self-end flex-1">
-          <p className="font-semibold text-right">
+          <p
+            className={`font-semibold text-right ${
+              data.priceChanges.latestPriceStatus ?? ''
+            }`}
+          >
             {stringToCurrency(data.priceChanges.latestPrice)}
           </p>
           <div className="text-sm">

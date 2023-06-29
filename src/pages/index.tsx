@@ -35,9 +35,11 @@ export const getServerSideProps: GetServerSideProps<
 }
 
 const HomeScreen = ({ initialData = [] }: IHomeScreenProps) => {
+  // @ts-ignore
   const { data } = useQuery<IGetLatestPricePayload[]>(
     'latestPrice',
-    () => getLatestPrice(),
+    // @ts-ignore
+    () => getLatestPrice(data ?? initialData),
     {
       refetchInterval: 2000,
     }

@@ -44,9 +44,16 @@ const columns = [
   }),
   columnHelper.accessor('priceChanges.latestPrice', {
     header: 'HARGA',
-    cell: (info) => (
-      <p className="font-semibold">{stringToCurrency(info.getValue())}</p>
-    ),
+    cell: (info) => {
+      const latestPriceStatus =
+        info.row.original.priceChanges.latestPriceStatus ?? ''
+
+      return (
+        <p className={`font-semibold ${latestPriceStatus}`}>
+          {stringToCurrency(info.getValue())}
+        </p>
+      )
+    },
     sortDescFirst: true,
   }),
   columnHelper.accessor('priceChanges.day', {
