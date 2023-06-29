@@ -61,9 +61,11 @@ export const getServerSideProps: GetServerSideProps<
 }
 
 function MarketTagPage({ initialData, marketData, slug }: IMarketTagPageProps) {
+  // @ts-ignore
   const { data } = useQuery<IGetLatestPricePayload[]>(
     'latestPrice',
-    () => getLatestPrice(),
+    // @ts-ignore
+    () => getLatestPrice(data ?? initialData),
     {
       refetchInterval: 2000,
     }

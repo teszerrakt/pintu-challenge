@@ -29,8 +29,8 @@ function TopMoverCard({ logo, name, price, percentage }: ITopMoverCardProps) {
           {name}
         </p>
       </div>
-      <p>{stringToCurrency(price)}</p>
-      <Percentage value={percentage} />
+      <p className="text-sm text-slate-400">{stringToCurrency(price)}</p>
+      <Percentage value={percentage} className="text-xl" />
     </div>
   )
 }

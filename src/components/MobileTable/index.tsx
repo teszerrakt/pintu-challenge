@@ -5,6 +5,8 @@ import { stringToCurrency } from 'src/utils/formatter'
 import Percentage from 'src/components/Percentage'
 import { useState } from 'react'
 import Dropdown from 'src/components/Dropdown'
+import Link from 'next/link'
+import { PINTU_BASE_URL } from 'src/constants/env'
 
 type TFilter = 'day' | 'week' | 'month' | 'year'
 
@@ -16,7 +18,10 @@ function Item({
   filter: TFilter
 }) {
   return (
-    <div className="flex items-center p-4 border-b">
+    <Link
+      className="flex items-center p-4 border-b"
+      href={`${PINTU_BASE_URL}/market/${data.currency.currencySymbol}`}
+    >
       <CryptoLogo url={data.currency.logo} color={data.currency.color} />
       <div className="flex flex-row flex-1 pl-6">
         <div className="flex-1">
@@ -26,7 +31,11 @@ function Item({
           </p>
         </div>
         <div className="self-end flex-1">
-          <p className="font-semibold text-right">
+          <p
+            className={`font-semibold text-right ${
+              data.priceChanges.latestPriceStatus ?? ''
+            }`}
+          >
             {stringToCurrency(data.priceChanges.latestPrice)}
           </p>
           <div className="text-sm">
@@ -37,7 +46,7 @@ function Item({
           </div>
         </div>
       </div>
-    </div>
+    </Link>
   )
 }
 
@@ -58,7 +67,7 @@ function MobileTable({ data }: ITableProps) {
   return (
     <div className="flex flex-col">
       <div className="flex items-center justify-between w-full p-4 border-y border-slate-300">
-        <p className="text-xs font-semibold ">CRYPTO</p>
+        <p className="text-xs font-semibold">CRYPTO</p>
         <Dropdown
           options={DROPDOWN_OPTIONS}
           initialValue={filter}

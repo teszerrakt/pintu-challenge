@@ -14,48 +14,53 @@ import {
 import { pairCodeSeparator } from 'src/utils/formatter'
 import { PINTU_API_URL } from 'src/constants/env'
 import { NextApiRequest, NextApiResponse } from 'next'
+import NodeCache from 'node-cache'
 
 let supportedCurrencies: IGetSupportedCurrenciesPayload[] = []
 let mappedSupportedCurrencies: TMappedSupportedCurrencies = {}
 
-let previousPrice: IGetPriceChangePayload[] = []
 let currentPrice: IGetPriceChangePayload[] = []
+
+interface CachedData {
+  supportedCurrencies: IGetSupportedCurrenciesPayload[]
+  mappedSupportedCurrencies: Record<string, any>
+}
+
+const cache = new NodeCache()
 
 async function init() {
   try {
-    if (supportedCurrencies.length > 0) return
-    const response = await fetch(
-      `${PINTU_API_URL}/v2/wallet/supportedCurrencies`
-    )
+    const cacheKey = 'supportedCurrencies'
+    const cachedData = cache.get(cacheKey) as CachedData
 
-    const data: TGetSupportedCurrenciesResponse = await response.json()
+    if (cachedData) {
+      supportedCurrencies = cachedData.supportedCurrencies
+      mappedSupportedCurrencies = cachedData.mappedSupportedCurrencies
+    } else {
+      const response = await fetch(
+        `${PINTU_API_URL}/v2/wallet/supportedCurrencies`
+      )
+      const data: TGetSupportedCurrenciesResponse = await response.json()
 
-    if (data.code !== 'success') {
-      throw new Error(data.message)
+      if (data.code !== 'success') {
+        throw new Error(data.message)
+      }
+
+      supportedCurrencies = data.payload
+      mappedSupportedCurrencies = mapSupportedCurrencies(supportedCurrencies)
+
+      cache.set(
+        cacheKey,
+        {
+          supportedCurrencies,
+          mappedSupportedCurrencies,
+        },
+        60
+      )
     }
-
-    supportedCurrencies = data.payload
-    mappedSupportedCurrencies = mapSupportedCurrencies(supportedCurrencies)
   } catch (error) {
     throw new Error('Error: Failed to fetch supported currencies')
   }
-}
-
-function comparePrice(
-  previousPrice: IGetPriceChangePayload | undefined,
-  currentPrice: IGetPriceChangePayload
-): TMovement {
-  if (!previousPrice) {
-    return 'same'
-  }
-  if (previousPrice.latestPrice > currentPrice.latestPrice) {
-    return 'down'
-  }
-  if (previousPrice.latestPrice < currentPrice.latestPrice) {
-    return 'up'
-  }
-
-  return 'same'
 }
 
 async function fetchPrice() {
@@ -70,11 +75,14 @@ async function fetchPrice() {
       throw new Error(data.message)
     }
 
-    previousPrice = currentPrice
     currentPrice = data.payload
   } catch (error) {
     throw new Error('Error: Failed to fetch latest price')
   }
+}
+
+function isMoving(priceChange: string): boolean {
+  return Number(priceChange) !== 0
 }
 
 export async function getPayload(): Promise<IGetLatestPricePayload[]> {
@@ -92,7 +100,14 @@ export async function getPayload(): Promise<IGetLatestPricePayload[]> {
       await init()
     }
 
-    if (!currency?.name || !currency?.logo) {
+    const noMovement =
+      !isMoving(restPrice.day) &&
+      !isMoving(restPrice.week) &&
+      !isMoving(restPrice.month) &&
+      !isMoving(restPrice.year)
+    const excludedCurrency = !currency?.name || !currency?.logo || noMovement
+
+    if (excludedCurrency) {
       continue
     }
 

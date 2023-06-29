@@ -1,3 +1,4 @@
 export const PINTU_API_URL = process.env.NEXT_PUBLIC_PINTU_API_URL
 export const PINTU_CONTENT_API_URL =
   process.env.NEXT_PUBLIC_PINTU_CONTENT_API_URL
+export const PINTU_BASE_URL = process.env.NEXT_PUBLIC_PINTU_BASE_URL

@@ -8,6 +8,7 @@ import MobileTable from 'src/components/MobileTable'
 import Head from 'next/head'
 import MarketTags from 'src/components/MarketTags'
 import { GetServerSideProps } from 'next'
+import SearchBar from 'src/components/SearchBar'
 
 interface IHomeScreenProps {
   initialData?: IGetLatestPricePayload[]
@@ -34,9 +35,11 @@ export const getServerSideProps: GetServerSideProps<
 }
 
 const HomeScreen = ({ initialData = [] }: IHomeScreenProps) => {
+  // @ts-ignore
   const { data } = useQuery<IGetLatestPricePayload[]>(
     'latestPrice',
-    () => getLatestPrice(),
+    // @ts-ignore
+    () => getLatestPrice(data ?? initialData),
     {
       refetchInterval: 2000,
     }
@@ -60,10 +63,11 @@ const HomeScreen = ({ initialData = [] }: IHomeScreenProps) => {
       </Head>
 
       <div className="pt-8">
-        <div className="mb-6 md:mb-8">
-          <h1 className="pl-4 md:pl-0 text-xl md:text-[28px]">
+        <div className="flex items-center justify-between mb-6 md:mb-8">
+          <h1 className="pl-4 md:pl-0 text-xl md:text-[28px] tracking-tight">
             Harga Crypto dalam Rupiah Hari Ini
           </h1>
+          <SearchBar />
         </div>
         <div className="mb-6 md:mt-4 ">
           <TopMovers data={tableData} limit={6} />
