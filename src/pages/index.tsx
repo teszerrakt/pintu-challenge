@@ -7,8 +7,15 @@ import Table from 'src/components/Table'
 import MobileTable from 'src/components/MobileTable'
 import Head from 'next/head'
 import MarketTags from 'src/components/MarketTags'
+import { GetServerSideProps } from 'next'
 
-export async function getServerSideProps() {
+interface IHomeScreenProps {
+  initialData?: IGetLatestPricePayload[]
+}
+
+export const getServerSideProps: GetServerSideProps<
+  IHomeScreenProps
+> = async () => {
   try {
     const initialData = await getPayload()
 
@@ -26,11 +33,7 @@ export async function getServerSideProps() {
   }
 }
 
-interface IHomescreenProps {
-  initialData?: IGetLatestPricePayload[]
-}
-
-const HomeScreen = ({ initialData = [] }: IHomescreenProps) => {
+const HomeScreen = ({ initialData = [] }: IHomeScreenProps) => {
   const { data } = useQuery<IGetLatestPricePayload[]>(
     'latestPrice',
     () => getLatestPrice(),

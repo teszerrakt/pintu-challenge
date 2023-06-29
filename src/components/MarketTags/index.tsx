@@ -1,7 +1,7 @@
 import { useQuery } from 'react-query'
 import getMarketTags from 'src/apis/marketTags'
 import { TGetMarketTagsResponse } from 'src/apis/marketTags/interface'
-import CryptoLogo from '../Icons/CryptoLogo'
+import CryptoLogo from '../Icons/Logo'
 import Link from 'next/link'
 
 interface ITagProps {

@@ -9,7 +9,7 @@ import {
 import Percentage from 'src/components/Percentage'
 import { IGetLatestPricePayload } from 'src/apis/latestPrice/interface'
 import { stringToCurrency } from 'src/utils/formatter'
-import CryptoLogo from 'src/components/Icons/CryptoLogo'
+import CryptoLogo from 'src/components/Icons/Logo'
 import { useState } from 'react'
 import Sorting from '../Icons/Sorting'
 

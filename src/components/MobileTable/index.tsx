@@ -1,6 +1,6 @@
 import { ITableProps } from 'src/components/Table'
 import { IGetLatestPricePayload } from 'src/apis/latestPrice/interface'
-import CryptoLogo from 'src/components/Icons/CryptoLogo'
+import CryptoLogo from 'src/components/Icons/Logo'
 import { stringToCurrency } from 'src/utils/formatter'
 import Percentage from '../Percentage'
 import { useState } from 'react'

@@ -2,7 +2,7 @@ import { useMemo } from 'react'
 import { IGetLatestPricePayload } from 'src/apis/latestPrice/interface'
 import { pairCodeSeparator, stringToCurrency } from 'src/utils/formatter'
 import Percentage from '../Percentage'
-import CryptoLogo from '../Icons/CryptoLogo'
+import CryptoLogo from '../Icons/Logo'
 
 interface ITopMoversProps {
   data: IGetLatestPricePayload[]
