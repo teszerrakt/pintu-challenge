@@ -43,7 +43,16 @@ const HomeScreen = ({ initialData = [] }: IHomescreenProps) => {
   return (
     <>
       <Head>
-        <title>Harga Crypto Hari Ini (IDR)</title>
+        <title>Harga Crypto Hari Ini (IDR) | Pintu</title>
+        <meta
+          property="og:title"
+          content="Harga Crypto Hari Ini (IDR) | Pintu"
+        />
+        <meta
+          property="og:description"
+          content="Dapatkan update harga Crypto hari ini dalam kurs Rupiah (IDR). Cek pergerakan grafik market crypto dalam 24 jam secara realtime!"
+        />
+        <meta property="og:url" content="https://pintu-challenge.vercel.app/" />
       </Head>
       <div className="pt-8">
         <div className="mb-6 md:mb-8">
