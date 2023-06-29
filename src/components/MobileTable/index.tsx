@@ -58,7 +58,7 @@ function MobileTable({ data }: ITableProps) {
   return (
     <div className="flex flex-col">
       <div className="flex items-center justify-between w-full p-4 border-y border-slate-300">
-        <p className="text-xs font-semibold ">CRYPTO</p>
+        <p className="text-xs font-semibold">CRYPTO</p>
         <Dropdown
           options={DROPDOWN_OPTIONS}
           initialValue={filter}
