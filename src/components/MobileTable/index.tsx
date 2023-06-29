@@ -2,8 +2,9 @@ import { ITableProps } from 'src/components/Table'
 import { IGetLatestPricePayload } from 'src/apis/latestPrice/interface'
 import CryptoLogo from 'src/components/Icons/Logo'
 import { stringToCurrency } from 'src/utils/formatter'
-import Percentage from '../Percentage'
+import Percentage from 'src/components/Percentage'
 import { useState } from 'react'
+import Dropdown from 'src/components/Dropdown'
 
 type TFilter = 'day' | 'week' | 'month' | 'year'
 
@@ -40,15 +41,29 @@ function Item({
   )
 }
 
+const DROPDOWN_OPTIONS = [
+  { key: 'day', value: '24 JAM' },
+  { key: 'week', value: '1 MGG' },
+  { key: 'month', value: '1 BLN' },
+  { key: 'year', value: '1 THN' },
+]
+
 function MobileTable({ data }: ITableProps) {
   const [filter, setFilter] = useState<TFilter>('day')
 
+  const handleFilterChange = (value: string) => {
+    setFilter(value as TFilter)
+  }
+
   return (
     <div className="flex flex-col">
-      <div className="flex justify-between">
-        <div className="w-full p-4 text-xs font-semibold border-y border-slate-300">
-          CRYPTO
-        </div>
+      <div className="flex items-center justify-between w-full p-4 border-y border-slate-300">
+        <p className="text-xs font-semibold ">CRYPTO</p>
+        <Dropdown
+          options={DROPDOWN_OPTIONS}
+          initialValue={filter}
+          onChange={handleFilterChange}
+        />
       </div>
       <div className="flex flex-col">
         {data.map((item) => (
