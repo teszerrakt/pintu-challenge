@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react'
-import Sorting from './index'
+import Sorting from 'src/components/Icons/Sorting'
 
 jest.mock('src/components/Icons/Chevron', () => {
   return function MockChevron(props: any) {
