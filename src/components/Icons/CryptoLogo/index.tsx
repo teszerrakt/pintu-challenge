@@ -1,5 +1,5 @@
 import fetchLogo from 'src/apis/logo/getLogo'
-import { useLayoutEffect, useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import { useQuery } from 'react-query'
 
 interface ICryptoLogoProps {
@@ -15,7 +15,7 @@ function CryptoLogo({ url, color, width = 32, height = 32 }: ICryptoLogoProps) {
   })
   const ref = useRef<HTMLDivElement>(null)
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (ref.current) {
       ref.current.firstElementChild?.classList.add('w-full', 'h-full')
     }
