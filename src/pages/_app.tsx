@@ -10,7 +10,7 @@ const queryClient = new QueryClient()
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <QueryClientProvider client={queryClient}>
-      <div className={`${inter.className} container mx-auto`}>
+      <div className={`${inter.className} mx-auto md:p-5 max-w-7xl`}>
         <Component {...pageProps} />
       </div>
     </QueryClientProvider>
