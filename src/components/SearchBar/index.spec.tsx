@@ -1,14 +1,21 @@
 import React from 'react'
-import { render, screen, fireEvent } from '@testing-library/react'
-import {
+import { render, screen, fireEvent, cleanup, act } from '@testing-library/react'
+import SearchBar, {
   SearchButton,
   SearchInput,
   Suggestion,
   SuggestionItem,
 } from 'src/components/SearchBar'
 import { MOCK_LATEST_PRICE_DATA } from 'src/__mocks__/latest-price'
+import { useQuery } from 'react-query'
 
+jest.mock('react-query')
 jest.mock('src/components/Icons/Logo')
+
+afterEach(() => {
+  cleanup()
+  jest.clearAllMocks()
+})
 
 describe('SearchButton', () => {
   const mockClick = jest.fn()
@@ -111,5 +118,77 @@ describe('Suggestion', () => {
 
     const errorText = screen.getByText(/"Nonexistent" Tidak Ditemukan/i)
     expect(errorText).toBeInTheDocument()
+  })
+})
+
+describe('SearchBar', () => {
+  const mockUseQuery = useQuery as jest.Mock
+
+  it('renders the search bar and handles search input', async () => {
+    mockUseQuery.mockReturnValue({ data: null })
+
+    render(<SearchBar />)
+
+    act(() => {
+      screen.getByTestId('desktop-search-button').click()
+    })
+
+    const searchInput = screen.getByTestId('search-input')
+
+    expect(searchInput).toBeInTheDocument()
+
+    fireEvent.change(searchInput, {
+      target: {
+        value: 'hola',
+      },
+    })
+
+    expect(searchInput).toHaveValue('hola')
+  })
+
+  it('renders the search bar and close it', async () => {
+    mockUseQuery.mockReturnValue({ data: [] })
+
+    render(<SearchBar />)
+
+    act(() => {
+      screen.getByTestId('desktop-search-button').click()
+    })
+
+    expect(screen.getByTestId('search-input')).toBeInTheDocument()
+
+    fireEvent.click(screen.getByTestId('close-icon'))
+
+    expect(screen.queryByTestId('search-input')).not.toBeInTheDocument()
+  })
+
+  it('renders filtered suggestion', async () => {
+    Object.defineProperty(window, 'location', {
+      value: {
+        href: '',
+      },
+      writable: true,
+    })
+
+    mockUseQuery.mockReturnValue({ data: MOCK_LATEST_PRICE_DATA })
+
+    const { container } = render(<SearchBar />)
+
+    act(() => {
+      screen.getByTestId('desktop-search-button').click()
+    })
+
+    const searchInput = screen.getByTestId('search-input')
+
+    expect(searchInput).toBeInTheDocument()
+
+    fireEvent.change(searchInput, {
+      target: {
+        value: 'btc',
+      },
+    })
+
+    const link = container.querySelectorAll('a')
+    expect(link).toHaveLength(1)
   })
 })

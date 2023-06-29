@@ -47,6 +47,7 @@ export function SearchInput({ value, onChange, onClose }: ISearchInputProps) {
       <SearchIcon />
       <div className="flex-1 mx-4">
         <input
+          data-testid="search-input"
           value={value}
           type="text"
           autoFocus
