@@ -22,6 +22,7 @@ function Percentage({ value, className }: IPercentageProps) {
 
   return (
     <div
+      data-testid="percentage"
       className={`flex gap-[5px] ${MAP_COLOR[direction]} ${className ?? ''}`}
     >
       <Movement direction={direction} />
