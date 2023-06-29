@@ -1,5 +1,5 @@
-import getLatestPrice from 'src/apis/getLatestPrice'
-import { IGetLatestPriceResponse } from 'src/pages/api/latestPrice/interface'
+import getLatestPrice from 'src/apis/latestPrice/getLatestPrice'
+import { IGetLatestPriceResponse } from 'src/apis/latestPrice/interface'
 import Table from 'src/components/Table'
 import { useQuery } from 'react-query'
 import MobileTable from 'src/components/MobileTable'

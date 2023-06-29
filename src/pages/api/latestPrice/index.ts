@@ -9,7 +9,7 @@ import {
   mapSupportedCurrencies,
 } from 'src/utils/mapper'
 
-import { IGetLatestPriceResponse } from 'src/pages/api/latestPrice/interface'
+import { IGetLatestPriceResponse } from 'src/apis/latestPrice/interface'
 import { pairCodeSeparator } from 'src/utils/formatter'
 import { PINTU_API_URL } from 'src/constants/env'
 import { NextApiRequest, NextApiResponse } from 'next'

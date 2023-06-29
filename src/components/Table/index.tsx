@@ -7,7 +7,7 @@ import {
   useReactTable,
 } from '@tanstack/react-table'
 import Percentage from 'src/components/Percentage'
-import { IGetLatestPriceResponse } from 'src/pages/api/latestPrice/interface'
+import { IGetLatestPriceResponse } from 'src/apis/latestPrice/interface'
 import { stringToCurrency } from 'src/utils/formatter'
 import CryptoLogo from 'src/components/Icons/CryptoLogo'
 import { useState } from 'react'
@@ -69,6 +69,8 @@ const columns = [
 const Table = ({ data }: ITableProps) => {
   const [sorting, setSorting] = useState<SortingState>([])
 
+  const tableLength = data.length
+
   const table = useReactTable({
     data,
     columns,
@@ -116,15 +118,26 @@ const Table = ({ data }: ITableProps) => {
             ))}
           </thead>
           <tbody>
-            {table.getRowModel().rows.map((row) => (
-              <tr key={row.id}>
-                {row.getVisibleCells().map((cell) => (
-                  <td key={cell.id} className="p-5 border-b">
-                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                  </td>
-                ))}
-              </tr>
-            ))}
+            {table.getRowModel().rows.map((row) => {
+              const isLastIndex = tableLength - 1 === row.index
+              return (
+                <tr key={row.id}>
+                  {row.getVisibleCells().map((cell) => (
+                    <td
+                      key={cell.id}
+                      className={`p-5 ${
+                        isLastIndex ? 'border-none' : 'border-b'
+                      }`}
+                    >
+                      {flexRender(
+                        cell.column.columnDef.cell,
+                        cell.getContext()
+                      )}
+                    </td>
+                  ))}
+                </tr>
+              )
+            })}
           </tbody>
         </table>
       </div>
