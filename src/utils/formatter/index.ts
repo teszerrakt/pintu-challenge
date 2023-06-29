@@ -14,14 +14,6 @@ export function pairCodeSeparator(pair: string): string[] {
   return pair.toUpperCase().split('/')
 }
 
-export function formatBaseURL(url: string) {
-  if (url.endsWith('/')) {
-    url = url.slice(0, -1)
-  }
-
-  return url
-}
-
 export function serializeQueryParams(params: Record<string, any>): string {
   return Object.entries(params)
     .filter(([_, value]) => value !== undefined && value !== null)
